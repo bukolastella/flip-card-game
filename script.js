@@ -29,6 +29,13 @@ const cardContainer = document.querySelector(".card_container");
 const moves = document.querySelector(".moves");
 const rating = document.querySelector(".rating");
 const time = document.querySelector(".time");
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
+const modalRating = document.querySelector(".modal_rating");
+const modalMoves = document.querySelector(".modal_moves");
+const modalBtn = document.querySelector(".modal_btn");
+const modalhead = document.querySelector(".modal_head");
+const your = document.querySelector(".your");
 const html = cards
   .map(
     (ev) => `<div class="card">
@@ -43,21 +50,23 @@ cardContainer.insertAdjacentHTML("afterbegin", html);
 
 let clicked = 0;
 let opened = "";
+let correct = 0;
+let set;
 cardContainer.addEventListener("click", function (e) {
   if (e.target.classList.contains("card_container")) return;
   if (!e.target.closest(".fb")) return;
   e.target.closest(".fb").classList.toggle("open");
   if (clicked == 0) startTimer();
-  console.log(time.textContent);
+  clicked += 1;
 
   if (opened == "") {
     opened = e.target.closest(".fb").querySelector(".back").innerHTML;
   } else {
-    clicked += 1;
     // console.log(clicked);
-    moves.textContent = clicked;
+    moves.textContent = Math.trunc(clicked / 2);
     if (e.target.closest(".fb").querySelector(".back").innerHTML == opened) {
       opened = "";
+      correct += 1;
       cardContainer.querySelectorAll(".open").forEach((ev) => {
         setTimeout(() => {
           ev.innerHTML = "";
@@ -65,6 +74,15 @@ cardContainer.addEventListener("click", function (e) {
           ev.classList.toggle("open");
         }, 1000);
       });
+      setTimeout(() => {
+        if (correct == 8) {
+          modal.style.display = "block";
+          modalRating.innerHTML = rating.innerHTML;
+          modalMoves.textContent = moves.textContent;
+          overlay.style.display = "block";
+          clearInterval(set);
+        }
+      }, 1000);
     } else {
       opened = "";
       setTimeout(() => {
@@ -85,25 +103,34 @@ function startTimer() {
     if (time.textContent.startsWith(":30", 2)) {
       ratings.pop();
       ratings.push('<i class="fas fa-star-half yo"></i>');
-      ratingRender();
+      renderRating();
     }
-    if (time.textContent.startsWith(":00", 2) && timer != 299) {
+    if (time.textContent.startsWith(":00", 2) && timer != 300) {
       ratings.pop();
-      ratingRender();
+      renderRating();
     }
     if (timer === 0) {
       clearInterval(set);
+      modal.style.display = "block";
+      your.style.display = "none";
+      modalMoves.textContent = moves.textContent;
+      overlay.style.display = "block";
+      modalhead.textContent = "whoops, time up!";
     }
     timer--;
   }
   tick();
-  const set = setInterval(tick, 1000);
+  set = setInterval(tick, 1000);
   return set;
 }
 
-function ratingRender() {
+function renderRating() {
   rating.innerHTML = "";
   const html2 = ratings.map((ev) => ev).join("");
   rating.insertAdjacentHTML("afterbegin", html2);
 }
-ratingRender();
+renderRating();
+
+modalBtn.addEventListener("click", function () {
+  location.reload();
+});
