@@ -37,6 +37,7 @@ const modalMoves = document.querySelector(".modal_moves");
 const modalBtn = document.querySelector(".modal_btn");
 const modalhead = document.querySelector(".modal_head");
 const your = document.querySelector(".your");
+//render the star rating
 const html = cards
   .map(
     (ev) => `<div class="card">
@@ -54,15 +55,19 @@ let opened = "";
 let correct = 0;
 let set;
 cardContainer.addEventListener("click", function (e) {
+  //guard clause
   if (e.target.classList.contains("card_container")) return;
   if (!e.target.closest(".fb")) return;
+  //open/flip a card
   e.target.closest(".fb").classList.toggle("open");
+  //start timer at a click
   if (clicked == 0) startTimer();
   clicked += 1;
 
   if (opened == "") {
     opened = e.target.closest(".fb").querySelector(".back").innerHTML;
   } else {
+    //check the present card with the already opened card
     // console.log(clicked);
     moves.textContent = Math.trunc(clicked / 2);
     if (e.target.closest(".fb").querySelector(".back").innerHTML == opened) {
@@ -75,6 +80,7 @@ cardContainer.addEventListener("click", function (e) {
           ev.classList.toggle("open");
         }, 1000);
       });
+      //when user finishes the game
       setTimeout(() => {
         if (correct == 8) {
           modal.style.display = "block";
@@ -85,6 +91,7 @@ cardContainer.addEventListener("click", function (e) {
         }
       }, 1000);
     } else {
+      //close both cards
       opened = "";
       setTimeout(() => {
         cardContainer
@@ -100,7 +107,7 @@ function startTimer() {
     const min = String(Math.trunc(timer / 60)).padStart(2, 0);
     const sec = String(timer % 60).padStart(2, 0);
     time.textContent = `${min}:${sec}`;
-
+    //at each 30 sec reduce the rating
     if (time.textContent.startsWith(":30", 2)) {
       ratings.pop();
       ratings.push('<i class="fas fa-star-half yo"></i>');
@@ -110,6 +117,7 @@ function startTimer() {
       ratings.pop();
       renderRating();
     }
+    //time up
     if (timer === 0) {
       clearInterval(set);
       modal.style.display = "block";
