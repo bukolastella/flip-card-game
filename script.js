@@ -1,5 +1,5 @@
 "use strict";
-const cards = [
+let cards = [
   '<i class="far fa-grin-tongue-squint fa-10x"></i>',
   '<i class="far fa-grin-hearts fa-10x"></i>',
   '<i class="fas fa-grin-squint-tears fa-10x"></i>',
@@ -18,6 +18,7 @@ const cards = [
   '<i class="fas fa-surprise fa-10x"></i>',
   '<i class="fas fa-grin-beam fa-10x"></i>',
 ];
+cards = cards.sort(() => Math.random() - 0.5);
 let ratings = [
   '<i class="fas fa-star"></i>',
   '<i class="fas fa-star"></i>',
