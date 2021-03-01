@@ -3,7 +3,6 @@
   position: relative;
   border-radius: 10px;
   background: #012926;
-  cursor: pointer;
 }
 .fb {
   transform-style: preserve-3d;
@@ -13,6 +12,7 @@
   height: 100%;
   box-shadow: 0 0 10px rgba(26, 34, 41, 0.5);
   border-radius: 10px;
+  cursor: pointer;
 }
 // .fb:hover {
 //   transform: rotateY(180deg);
@@ -33,7 +33,6 @@
 }
 .back {
   background: #025c56;
-  //   background: #012926;
   position: absolute;
   backface-visibility: hidden;
   transform: rotateY(180deg);
@@ -46,9 +45,9 @@
 }
 
 .same {
-  //   transform: scale(1.03);
-  //   transition: transform 0.2s ease-in-out;
   box-shadow: inset 0 0 10px #9bd6f1;
-  background-color: rgb(27, 27, 27);
-  //   visibility: hidden;
+  background-color: #262829;
+  transition: all 0.5s ease;
+  pointer-events: none;
+  cursor: not-allowed;
 }
