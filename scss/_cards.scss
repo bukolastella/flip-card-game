@@ -1,0 +1,54 @@
+.card {
+  color: yellow;
+  position: relative;
+  border-radius: 10px;
+  background: #012926;
+  cursor: pointer;
+}
+.fb {
+  transform-style: preserve-3d;
+  transition: all 0.5s ease;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 10px rgba(26, 34, 41, 0.5);
+  border-radius: 10px;
+}
+// .fb:hover {
+//   transform: rotateY(180deg);
+// }
+.open {
+  transform: rotateY(180deg);
+}
+// .close {
+//   transform: rotateY(0deg);
+// }
+.front {
+  background: #02ccba;
+  position: absolute;
+  backface-visibility: hidden;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+.back {
+  background: #025c56;
+  //   background: #012926;
+  position: absolute;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.same {
+  //   transform: scale(1.03);
+  //   transition: transform 0.2s ease-in-out;
+  box-shadow: inset 0 0 10px #9bd6f1;
+  background-color: rgb(27, 27, 27);
+  //   visibility: hidden;
+}
